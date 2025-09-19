@@ -1,0 +1,34 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+[RequireComponent(typeof(PlayerInput))]
+public class PlayerData : MonoBehaviour
+{
+    [Header("Input")]
+    public InputAction MovementInput;
+    public InputAction LookInput;
+    public InputAction InteractInput;
+    [SerializeField] private float lookSensitivity;
+    public float LookSensitivity { get => lookSensitivity; }
+
+    [Header("Camera")]
+    public Vector2 LookDelta { get; set; }
+    public Transform CameraTransform { get; set; }
+    /// <summary>
+    /// the player's head offset, to raise/lower the camera
+    /// </summary>
+    [SerializeField] private Transform head;
+    public Transform Head { get => head; }
+
+    [Header("Movement")]
+    public Vector2 MoveDirection { get; set; }
+    public float Speed;
+
+    void Awake()
+    {
+        PlayerInput playerInput = GetComponent<PlayerInput>();
+        MovementInput = playerInput.actions.FindAction("Move");
+        LookInput = playerInput.actions.FindAction("Look");
+        InteractInput = playerInput.actions.FindAction("Interact");
+    }
+}

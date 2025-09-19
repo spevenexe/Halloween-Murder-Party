@@ -56,5 +56,8 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Halloween Murder Party.sln"
+    "dotnet.defaultSolution": "Halloween Murder Party.sln",
+    "omnisharp.sdkVersion": "9.0.900",
+    "omnisharp.useModernNet": false,
+    "omnisharp.enableMsBuildLoadProjectsOnDemand": true
 }
