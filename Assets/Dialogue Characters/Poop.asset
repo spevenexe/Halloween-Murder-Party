@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17758e8285f002c40a5c68872d8e490b, type: 3}
   m_Name: Poop
   m_EditorClassIdentifier: 
-  characterPhoto: {fileID: 0}
+  characterPhoto: {fileID: 21300000, guid: f9273071ddb2d2f48b59fb186604d62a, type: 3}
   characterName: Poop
