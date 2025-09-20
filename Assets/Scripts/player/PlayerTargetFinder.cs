@@ -23,8 +23,13 @@ public class PlayerTargetFinder : PlayerSystem
         {
             RaycastHit hit = hits[0];
 
-            playerData.Target = hit.transform.GetComponent<Interactable>();
-            playerData.Target.OnHighlight.Invoke();
+            Interactable currentTarget = hit.transform.GetComponent<Interactable>();
+
+            if (playerData.Target != currentTarget)
+            {
+                playerData.Target = currentTarget;
+                playerData.Target.OnHighlight.Invoke();
+            }
         }
         // otherwise, we aren't looking at something interactable
         else

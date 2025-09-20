@@ -42,15 +42,14 @@ namespace DialogueSystem
         [SerializeField] private TextMeshProUGUI messageText;
         [SerializeField] private GameObject dialogueWindow;
         [SerializeField] private GameObject interactionUI;
+        [SerializeField] private TMP_Text interactionUIPrompt;
+        [SerializeField] private TMP_Text nextMessagePrompt;
 
         [Header("Settings")]
         [SerializeField] private bool animateText = true;
 
         [Range(0.1f, 1f)]
         [SerializeField] private float textAnimationSpeed = 0.5f;
-
-        [Header("Next sentence input")]
-        public KeyCode actionInput = KeyCode.Space;
 
         #region Handling Player Input
         private PlayerData playerData;
@@ -77,17 +76,7 @@ namespace DialogueSystem
                 startDialogueDelayTimer -= Time.deltaTime;
             }
 
-            // InputUpdate();
         }
-
-        // public virtual void InputUpdate()
-        // {
-        //     //Next dialogue input
-        //     if (Input.GetKeyDown(actionInput))
-        //     {
-        //         NextSentenceSoft();
-        //     }
-        // }
 
         /// <summary>
         /// If a sentence is being written and this function is called, the sentence is completed instead of immediately moving to the next sentence.
@@ -174,6 +163,10 @@ namespace DialogueSystem
         public void ShowInteractionUI(bool _value)
         {
             interactionUI.SetActive(_value);
+
+            // a bit inefficient to reset the strings in this manner on each prompt, but could potentially be useful if rebinding is implemented
+            interactionUIPrompt.text = $"[{playerData.InteractInput.GetBindingDisplayString()}] Talk";
+            nextMessagePrompt.text = $"[{playerData.InteractInput.GetBindingDisplayString()}] Continue";
         }
 
         public bool IsProcessingDialogue()

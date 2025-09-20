@@ -142,7 +142,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Talk "Space"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -768,9 +768,10 @@ MonoBehaviour:
   messageText: {fileID: 1086958891783518106}
   dialogueWindow: {fileID: 1582379676167411494}
   interactionUI: {fileID: 1878243767093173857}
+  interactionUIPrompt: {fileID: 5630599099388125955}
+  nextMessagePrompt: {fileID: 9127538470710412397}
   animateText: 1
   textAnimationSpeed: 0.5
-  actionInput: 32
 --- !u!223 &2012601779500901019
 Canvas:
   m_ObjectHideFlags: 0
