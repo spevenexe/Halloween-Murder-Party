@@ -1,10 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.InputSystem;
 
-namespace HeneGames.DialogueSystem
+namespace DialogueSystem
 {
     public class DialogueUI : MonoBehaviour
     {
@@ -31,7 +31,7 @@ namespace HeneGames.DialogueSystem
 
         #endregion
 
-        private DialogueManager currentDialogueManager;
+        private DialogueSource currentDialogueSource;
         private bool typing;
         private string currentMessage;
         private float startDialogueDelayTimer;
@@ -52,31 +52,48 @@ namespace HeneGames.DialogueSystem
         [Header("Next sentence input")]
         public KeyCode actionInput = KeyCode.Space;
 
+        #region Handling Player Input
+        private PlayerData playerData;
+
+        void OnEnable()
+        {
+            playerData = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerData>();
+
+            playerData.InteractInput.performed += instance.NextSentenceSoft;
+        }
+
+        void OnDisable()
+        {
+            playerData.InteractInput.performed -= instance.NextSentenceSoft;
+        }
+
+        #endregion
+
         private void Update()
         {
             //Delay timer
-            if(startDialogueDelayTimer > 0f)
+            if (startDialogueDelayTimer > 0f)
             {
                 startDialogueDelayTimer -= Time.deltaTime;
             }
 
-            InputUpdate();
+            // InputUpdate();
         }
 
-        public virtual void InputUpdate()
-        {
-            //Next dialogue input
-            if (Input.GetKeyDown(actionInput))
-            {
-                NextSentenceSoft();
-            }
-        }
+        // public virtual void InputUpdate()
+        // {
+        //     //Next dialogue input
+        //     if (Input.GetKeyDown(actionInput))
+        //     {
+        //         NextSentenceSoft();
+        //     }
+        // }
 
         /// <summary>
         /// If a sentence is being written and this function is called, the sentence is completed instead of immediately moving to the next sentence.
         /// This function needs to be called twice if you want to switch to a new sentence.
         /// </summary>
-        public void NextSentenceSoft()
+        public void NextSentenceSoft(InputAction.CallbackContext context)
         {
             if (startDialogueDelayTimer <= 0f)
             {
@@ -99,29 +116,29 @@ namespace HeneGames.DialogueSystem
         public void NextSentenceHard()
         {
             //Continue only if we have dialogue
-            if (currentDialogueManager == null)
+            if (currentDialogueSource == null)
                 return;
 
             //Tell the current dialogue manager to display the next sentence. This function also gives information if we are at the last sentence
-            currentDialogueManager.NextSentence(out bool lastSentence);
+            currentDialogueSource.NextSentence(out bool lastSentence);
 
             //If last sentence remove current dialogue manager
             if (lastSentence)
             {
-                currentDialogueManager = null;
+                currentDialogueSource = null;
             }
         }
 
-        public void StartDialogue(DialogueManager _dialogueManager)
+        public void StartDialogue(DialogueSource _DialogueSource)
         {
             //Delay timer
             startDialogueDelayTimer = 0.1f;
 
             //Store dialogue manager
-            currentDialogueManager = _dialogueManager;
+            currentDialogueSource = _DialogueSource;
 
             //Start displaying dialogue
-            currentDialogueManager.StartDialogue();
+            currentDialogueSource.StartDialogue();
         }
 
         public void ShowSentence(DialogueCharacter _dialogueCharacter, string _message)
@@ -149,6 +166,11 @@ namespace HeneGames.DialogueSystem
             dialogueWindow.SetActive(false);
         }
 
+        public void ClearDialogueSource()
+        {
+            currentDialogueSource = null;
+        }
+
         public void ShowInteractionUI(bool _value)
         {
             interactionUI.SetActive(_value);
@@ -156,7 +178,7 @@ namespace HeneGames.DialogueSystem
 
         public bool IsProcessingDialogue()
         {
-            if(currentDialogueManager != null)
+            if(currentDialogueSource != null)
             {
                 return true;
             }
@@ -171,10 +193,10 @@ namespace HeneGames.DialogueSystem
 
         public int CurrentDialogueSentenceLenght()
         {
-            if (currentDialogueManager == null)
+            if (currentDialogueSource == null)
                 return 0;
 
-            return currentDialogueManager.CurrentSentenceLenght();
+            return currentDialogueSource.CurrentSentenceLength();
         }
 
         IEnumerator WriteTextToTextmesh(string _text, TextMeshProUGUI _textMeshObject)

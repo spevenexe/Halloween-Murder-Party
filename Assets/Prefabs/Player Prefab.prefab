@@ -201,6 +201,7 @@ GameObject:
   - component: {fileID: 2359542924099740669}
   - component: {fileID: 1541123863891274493}
   - component: {fileID: 8668268714957220615}
+  - component: {fileID: 4425537316452673101}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -396,17 +397,9 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
-  DropInput:
-    m_Name: Drop Input
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: c02bcd03-d7f7-419b-9f15-bb34115c12bb
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
   lookSensitivity: 0.5
   head: {fileID: 3349803163493929697}
+  interactRange: 3
   Speed: 5
 --- !u!114 &2359542924099740669
 MonoBehaviour:
@@ -444,7 +437,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e52ddc4d717fc214ea0c560a3a349f68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactRange: 3
+--- !u!114 &4425537316452673101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4640605926682689398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e5deed328c1cd249805e69a046b3082, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5195144801625017680
 GameObject:
   m_ObjectHideFlags: 0

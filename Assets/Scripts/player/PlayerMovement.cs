@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : PlayerSystem
 {
     private Rigidbody rb;
@@ -9,16 +10,17 @@ public class PlayerMovement : PlayerSystem
         rb = GetComponent<Rigidbody>();
     }
 
-    void FixedUpdate()
+    // putting this in `Update` instead of `FixedUpdate` allows movement to feel smoother on throttled CPU execution. Could have performance impact due to physics calculations, however.
+    void Update()
     {
         // matrix rotation around camera angle
         float cameraAngle = -transform.eulerAngles.y * Mathf.PI / 180f;
         float rotatedXDirection = playerData.MoveDirection.x * Mathf.Cos(cameraAngle) - playerData.MoveDirection.y * Mathf.Sin(cameraAngle);
         float rotatedYDirection = playerData.MoveDirection.x * Mathf.Sin(cameraAngle) + playerData.MoveDirection.y * Mathf.Cos(cameraAngle);
-        playerData.MoveDirection = new Vector2(rotatedXDirection, rotatedYDirection);
+        playerData.MoveDirection = new(rotatedXDirection, rotatedYDirection);
 
 
-        Vector3 moveDir = new Vector3(
+        Vector3 moveDir = new(
             playerData.MoveDirection.x * playerData.Speed,
             rb.linearVelocity.y,
             playerData.MoveDirection.y * playerData.Speed);

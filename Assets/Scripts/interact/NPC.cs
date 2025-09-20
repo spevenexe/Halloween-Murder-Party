@@ -1,9 +1,10 @@
+using DialogueSystem;
 using UnityEngine;
 
-public class NPC : Interactable
+public class NPC : DialogueSource
 {
     public override void Activate(PlayerData playerData = null)
     {
-        Debug.Log("hi");
+        base.Activate(playerData);
     }
 }

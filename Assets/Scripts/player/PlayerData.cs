@@ -20,6 +20,10 @@ public class PlayerData : MonoBehaviour
     [SerializeField] private Transform head;
     public Transform Head { get => head; }
 
+    [Header("Interact")]
+    public float interactRange = 3f;
+    public Interactable Target { get; set; }
+
     [Header("Movement")]
     public Vector2 MoveDirection { get; set; }
     public float Speed;
