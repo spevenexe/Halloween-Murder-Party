@@ -7,8 +7,12 @@ Uses [HeneGames's Dialgoue System](https://assetstore.unity.com/packages/tools/g
 
 ## How to Create a Character
 
-1. Create a `DialogueCharacter` Scriptable Object Asset. ![alt text](README-info/createdialoguecharacter.png)
-2. In the inspector, give it a name: ![alt text](README-info/Poop.png)
+1. Create a `DialogueCharacter` Scriptable Object Asset. 
+
+![alt text](README-info/createdialoguecharacter.png)
+2. In the inspector, give it a name: 
+
+![alt text](README-info/Poop.png)
 3. If you haven't created a Unity `Sprite` Asset, import your image, then configure it in the inspector:
    1. Set `Texture Type` to `Sprite (2D and UI)`.
    2. Set `Sprite Mode` to `Single`. If you are importing a sprite sheet, you know what you are doing and can skip this.
@@ -21,12 +25,20 @@ Uses [HeneGames's Dialgoue System](https://assetstore.unity.com/packages/tools/g
 ## How to Set Up Dialogue NPC
 
 1. You can either:
-   1. Use the [`Prefabs/NPC`](Assets/Prefabs/NPC.prefab) Prefab to get a quick start. ![alt text](README-info/npcprefab.png)
+   1. Use the [`Prefabs/NPC`](Assets/Prefabs/NPC.prefab) Prefab to get a quick start. 
+   
+   ![alt text](README-info/npcprefab.png)
    2. Create the object yourself, if you need to customize the mesh, etc.
       1. Create/Import any object.
-      2. Give it any 3D `Collider` component and a `NPC` script. Preferably not a mesh collider, since we want this game to run on WebGL. ![alt text](README-info/addcomponents.png)
-      3. Set its layer to `Interact`. ![alt text](README-info/setlayer.png)
-2. Under the `NPC` script, find the `Sentences` list, under the `Dialogue` Header. ![alt text](README-info/sentences.png)
+      2. Give it any 3D `Collider` component and a `NPC` script. Preferably not a mesh collider, since we want this game to run on WebGL. 
+      
+      ![alt text](README-info/addcomponents.png)
+      3. Set its layer to `Interact`. 
+      
+      ![alt text](README-info/setlayer.png)
+2. Under the `NPC` script, find the `Sentences` list, under the `Dialogue` Header. 
+
+![alt text](README-info/sentences.png)
 3. Add a `Sentence`. For each one:
    1. Dialogue Character (mandatory). Switch it up for each sentence to change who is talking.
    2. Sentence Text.
