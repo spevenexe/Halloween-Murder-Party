@@ -51,4 +51,6 @@ Uses [HeneGames's Dialgoue System](https://assetstore.unity.com/packages/tools/g
    3. Skip Delay. This prevents players from spamming the text and accidentally skipping dialogue. For some reason, it defaults to 0, even though it shouldn't.
    4. You can explore the other things if you like, or wait for me to implement them.
 
+   ![alt text](README-info/ilikepoop.png)
+
 Use [`Scenes/SampleScene`](Assets/Scenes/SampleScene.unity), which has a player pre-configured, to test out your NPC.
