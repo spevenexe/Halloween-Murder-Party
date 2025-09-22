@@ -7,14 +7,19 @@ public class PlayerAura : PlayerSystem
     // event trigger when aura changes. Invokes with new aura level, and signed change in aura
     public UnityEvent<int, int> AuraChanged;
 
+    void OnDisable()
+    {
+        AuraChanged.RemoveAllListeners();
+    }
+
     void Start()
     {
         Aura = playerData.BaseAura;
     }
 
+    // note that the setter does NOT invoke the change event
     public void SetAura(int newAura)
     {
-        AuraChanged.Invoke(newAura, newAura - Aura);
         Aura = newAura;
     }
 

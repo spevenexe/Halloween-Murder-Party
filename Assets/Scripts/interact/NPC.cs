@@ -19,12 +19,23 @@ public class NPC : DialogueSource
 
         OnHighlight.AddListener(RevealAccusePrompt);
         OnDehighlight.AddListener(HideAccusePrompt);
+
+        startDialogueEvent.AddListener(AdjustInteractCount);
+    }
+
+    private void AdjustInteractCount(DialogueFlags flags)
+    {
+        if (!dialogueObject.HasBeenRead)
+        {
+            InteractionLimitManager.instance.DecreaseInteracts(dialogueObject.InteractionCost);
+            dialogueObject.SetRead();
+        }
     }
 
     private void RevealAccusePrompt()
     {
-        if (dialogueData != null && (canRiskyCheck || canSafeCheck))
-            AccusationUI.instance.ShowAccuseUI(true,canSafeCheck);
+        if (dialogueObject != null && (canRiskyCheck || canSafeCheck))
+            AccusationUI.instance.ShowAccuseUI(true, canSafeCheck);
     }
 
     private void HideAccusePrompt()

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInput))]
-public class PlayerData : MonoBehaviour
+public class PlayerData : Singleton<PlayerData>
 {
     [Header("Input")]
     public InputAction MovementInput;
@@ -33,8 +33,10 @@ public class PlayerData : MonoBehaviour
     [SerializeField] private int baseAura = 1000;
     public int BaseAura { get => baseAura; }
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        
         PlayerInput playerInput = GetComponent<PlayerInput>();
         MovementInput = playerInput.actions.FindAction("Move");
         LookInput = playerInput.actions.FindAction("Look");

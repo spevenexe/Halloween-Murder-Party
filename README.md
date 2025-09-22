@@ -26,7 +26,7 @@ Uses [HeneGames's Dialogue System](https://assetstore.unity.com/packages/tools/g
 
 ## How to Create a Conversation
 
-1. Create a `Dialogu eData` Scriptable Object Asset:
+1. Create a `Dialogue Data` Scriptable Object Asset:
 
 ![alt text](README-info/createdialoguedata.png)
 
@@ -35,6 +35,8 @@ Uses [HeneGames's Dialogue System](https://assetstore.unity.com/packages/tools/g
    2. Sentence Text.
    3. `Skip Delay`. This prevents players from spamming the text and accidentally skipping dialogue. For some reason, it defaults to 0, even though it shouldn't.
    4. You can explore the other things if you like, or wait for me to implement them.
+3. `Interaction Cost` defines how much it costs to activate the dialogue, (regarding the mechanical approach of limiting the number of interacts)
+4. `Do Loop` tells the conversation to loop. Only works if `Sentences` is empty.
 
 ![alt text](README-info/addsentences.png)
 
@@ -42,8 +44,9 @@ Uses [HeneGames's Dialogue System](https://assetstore.unity.com/packages/tools/g
    
    Default behavior:
    1. If there are no branches, the dialogue finishes and the NPC becomes unavailable.
-   2. Otherwise proceed to the first branch in the list
-   3. `TODO:` make it work with flags (haven't done it yet)
+   2. Otherwise, proceed to the first branch in the list
+   3. If `Do Loop` is `true` and `Sentences` is empty, begin looping the text 
+   4. `TODO:` make it work with flags (haven't done it yet)
 
 ![alt text](README-info/branches.png)
 

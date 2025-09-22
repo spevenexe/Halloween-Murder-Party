@@ -168,12 +168,12 @@ namespace DialogueSystem
             CurrentDialogueSource = null;
         }
 
-        public void ShowInteractionUI(bool _value)
+        public void ShowInteractionUI(bool _value, string message = "")
         {
             interactionUI.SetActive(_value);
 
             // a bit inefficient to reset the strings in this manner on each prompt, but could potentially be useful if rebinding is implemented
-            interactionUIPrompt.text = $"[{playerData.InteractInput.GetBindingDisplayString()}] Talk";
+            interactionUIPrompt.text = message;
             nextMessagePrompt.text = $"[{playerData.InteractInput.GetBindingDisplayString()}] Continue";
         }
 
