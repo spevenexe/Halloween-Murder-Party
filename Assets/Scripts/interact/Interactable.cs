@@ -5,10 +5,16 @@ public abstract class Interactable : MonoBehaviour, IInteract
 {
     public UnityEvent OnHighlight, OnDehighlight;
 
-    void Awake()
+    protected virtual void Awake()
     {
         if (OnHighlight == null) OnHighlight = new();
         if (OnDehighlight == null) OnDehighlight = new();
+    }
+
+    protected virtual void OnDisable()
+    {
+        OnHighlight.RemoveAllListeners();
+        OnDehighlight.RemoveAllListeners();
     }
 
     public abstract void Activate(PlayerData playerData = null);

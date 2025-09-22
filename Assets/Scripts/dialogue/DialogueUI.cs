@@ -31,7 +31,7 @@ namespace DialogueSystem
 
         #endregion
 
-        private DialogueSource currentDialogueSource;
+        public DialogueSource CurrentDialogueSource { get; private set; }
         private bool typing;
         // helps consume an input to prevent interaction from instantly playing the text
         private bool justRemovedSource = false;
@@ -107,16 +107,16 @@ namespace DialogueSystem
         public void NextSentenceHard()
         {
             //Continue only if we have dialogue
-            if (currentDialogueSource == null)
+            if (CurrentDialogueSource == null)
                 return;
 
             //Tell the current dialogue manager to display the next sentence. This function also gives information if we are at the last sentence
-            currentDialogueSource.NextSentence(out bool lastSentence);
+            CurrentDialogueSource.NextSentence(out bool lastSentence);
 
             //If last sentence remove current dialogue manager
             if (lastSentence)
             {
-                currentDialogueSource = null;
+                CurrentDialogueSource = null;
                 justRemovedSource = true;
             }
         }
@@ -127,10 +127,15 @@ namespace DialogueSystem
             startDialogueDelayTimer = 0.1f;
 
             //Store dialogue manager
-            currentDialogueSource = _DialogueSource;
+            CurrentDialogueSource = _DialogueSource;
 
             //Start displaying dialogue
-            currentDialogueSource.StartDialogue();
+            CurrentDialogueSource.StartDialogue();
+        }
+
+        public void StopDialogue()
+        {
+            if (CurrentDialogueSource != null) CurrentDialogueSource.StopDialogue();
         }
 
         public void ShowSentence(DialogueCharacter _dialogueCharacter, string _message)
@@ -160,7 +165,7 @@ namespace DialogueSystem
 
         public void ClearDialogueSource()
         {
-            currentDialogueSource = null;
+            CurrentDialogueSource = null;
         }
 
         public void ShowInteractionUI(bool _value)
@@ -174,7 +179,7 @@ namespace DialogueSystem
 
         public bool IsProcessingDialogue()
         {
-            if(currentDialogueSource != null)
+            if(CurrentDialogueSource != null)
             {
                 return true;
             }
@@ -196,10 +201,10 @@ namespace DialogueSystem
 
         public int CurrentDialogueSentenceLength()
         {
-            if (currentDialogueSource == null)
+            if (CurrentDialogueSource == null)
                 return 0;
 
-            return currentDialogueSource.CurrentSentenceLength();
+            return CurrentDialogueSource.CurrentSentenceLength();
         }
 
         IEnumerator WriteTextToTextmesh(string _text, TextMeshProUGUI _textMeshObject)

@@ -8,6 +8,7 @@ public class PlayerData : MonoBehaviour
     public InputAction MovementInput;
     public InputAction LookInput;
     public InputAction InteractInput;
+    public InputAction AccuseInput;
     [SerializeField] private float lookSensitivity;
     public float LookSensitivity { get => lookSensitivity; }
 
@@ -28,11 +29,16 @@ public class PlayerData : MonoBehaviour
     public Vector2 MoveDirection { get; set; }
     public float Speed;
 
+    [Header("Accusation")]
+    [SerializeField] private int baseAura = 1000;
+    public int BaseAura { get => baseAura; }
+
     void Awake()
     {
         PlayerInput playerInput = GetComponent<PlayerInput>();
         MovementInput = playerInput.actions.FindAction("Move");
         LookInput = playerInput.actions.FindAction("Look");
         InteractInput = playerInput.actions.FindAction("Interact");
+        AccuseInput = playerInput.actions.FindAction("Accuse");
     }
 }

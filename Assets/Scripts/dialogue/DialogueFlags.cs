@@ -7,12 +7,12 @@ namespace DialogueSystem
     public class DialogueFlags
     {
         public bool isHappy; // just some test flags
-        public bool isEvil;
+        public bool hasItem;
 
-        public DialogueFlags(bool isHappy, bool isEvil)
+        public DialogueFlags(bool isHappy = false, bool hasItem = false)
         {
             this.isHappy = isHappy;
-            this.isEvil = isEvil;
+            this.hasItem = hasItem;
         }
 
         /// <summary>
@@ -25,7 +25,8 @@ namespace DialogueSystem
         {
             // conditional disjunctional equivalence. Basically, we only care the vaule in flags if key is true
             return (flags.isHappy || !key.isHappy) &&
-                    (flags.isEvil || !key.isEvil);
+                (flags.hasItem || !key.hasItem)
+            ;
         }
 
         

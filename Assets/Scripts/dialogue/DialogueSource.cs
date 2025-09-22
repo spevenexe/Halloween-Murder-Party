@@ -14,7 +14,8 @@ namespace DialogueSystem
         [SerializeField] protected DialogueData dialogueData;
         // if the next conversation is available, this allows for smooth conversations without stopping
         private DialogueData prev;
-        protected DialogueFlags flags = new(false, false);
+        // configure the default state of the NPC
+        [SerializeField] protected DialogueFlags flags = new();
 
         [Header("References")]
         [SerializeField] private AudioSource audioSource;
@@ -24,8 +25,9 @@ namespace DialogueSystem
         public UnityEvent<DialogueFlags> nextSentenceDialogueEvent;
         public UnityEvent<DialogueFlags> endDialogueEvent;
 
-        void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             prev = dialogueData;
         }
 
@@ -37,10 +39,9 @@ namespace DialogueSystem
             endDialogueEvent.AddListener(NextDialogue);
         }
 
-        protected virtual void OnDisable()
+        protected override void OnDisable()
         {
-            OnHighlight.RemoveAllListeners();
-            OnDehighlight.RemoveAllListeners();
+            base.OnDisable();
 
             startDialogueEvent.RemoveAllListeners();
             nextSentenceDialogueEvent.RemoveAllListeners();
@@ -222,6 +223,12 @@ namespace DialogueSystem
                     dialogueData = null;
                 }
             }
+        }
+
+        protected void SetDialogue(DialogueData newData)
+        {
+            prev = dialogueData;
+            dialogueData = newData;
         }
     }
 
