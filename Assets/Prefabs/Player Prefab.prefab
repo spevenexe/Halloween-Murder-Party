@@ -202,6 +202,8 @@ GameObject:
   - component: {fileID: 1541123863891274493}
   - component: {fileID: 8668268714957220615}
   - component: {fileID: 4425537316452673101}
+  - component: {fileID: 523812971365522047}
+  - component: {fileID: 4627460658784034774}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -397,10 +399,20 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  AccuseInput:
+    m_Name: Accuse Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: dd2d3016-ccdd-411c-b9b5-bad9c4f03bc6
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   lookSensitivity: 0.5
   head: {fileID: 3349803163493929697}
   interactRange: 3
   Speed: 5
+  baseAura: 1000
 --- !u!114 &2359542924099740669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,6 +461,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e5deed328c1cd249805e69a046b3082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &523812971365522047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4640605926682689398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fe5c905bd471934c9207a79e46b8ef1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4627460658784034774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4640605926682689398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363b2e3222db52341933efa5a99ad7d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AuraChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5195144801625017680
 GameObject:
   m_ObjectHideFlags: 0
