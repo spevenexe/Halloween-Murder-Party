@@ -13,7 +13,7 @@ namespace DialogueSystem
         [Header("Dialogue")]
         [SerializeField] protected DialogueData dialogueData;
         // if the next conversation is available, this allows for smooth conversations without stopping
-        private bool proceededToNextDialogue = false;
+        private DialogueData prev;
         protected DialogueFlags flags = new(false, false);
 
         [Header("References")]
@@ -23,6 +23,11 @@ namespace DialogueSystem
         public UnityEvent<DialogueFlags> startDialogueEvent;
         public UnityEvent<DialogueFlags> nextSentenceDialogueEvent;
         public UnityEvent<DialogueFlags> endDialogueEvent;
+
+        void Awake()
+        {
+            prev = dialogueData;
+        }
 
         protected virtual void OnEnable()
         {
@@ -186,10 +191,8 @@ namespace DialogueSystem
         {
             // either we just interacted to close the text window, or there's more (different) text
             if (!dialogueIsOn && dialogueData != null &&
-            (!DialogueUI.instance.JustRemovedSource() || proceededToNextDialogue))
+            (!DialogueUI.instance.JustRemovedSource() || prev != dialogueData))
             {
-                proceededToNextDialogue = false;
-
                 startDialogueEvent.Invoke(flags);
 
                 //If component found start dialogue
@@ -205,11 +208,19 @@ namespace DialogueSystem
         // set the next dialogue data object, if it exists
         protected virtual void NextDialogue(DialogueFlags flags)
         {
-            if (dialogueData != null && dialogueData.NextBranches != null && dialogueData.NextBranches.Count > 0)
+            if (dialogueData != null)
             {
-                proceededToNextDialogue = true;
-                // default behavior is first in list
-                dialogueData = dialogueData.NextBranches[0].DialogueData;
+                prev = dialogueData;
+                if (dialogueData.NextBranches != null && dialogueData.NextBranches.Count > 0)
+                {
+                    // default behavior is first in list
+                    dialogueData = dialogueData.NextBranches[0].DialogueData;
+                }
+                else
+                {
+                    // no branches? no more dialogue
+                    dialogueData = null;
+                }
             }
         }
     }

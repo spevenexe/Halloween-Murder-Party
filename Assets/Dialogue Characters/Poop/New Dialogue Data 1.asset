@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 522c8231a462d584cb214e4b1e28bd8b, type: 3}
-  m_Name: 2
+  m_Name: New Dialogue Data 1
   m_EditorClassIdentifier: 
   sentences:
   - dialogueCharacter: {fileID: 11400000, guid: c2f5c19bf424df84a8243f9086d5d7c6, type: 2}
-    sentence: This is sentence group 2
+    sentence: This is the next set of sentences.
     skipDelayTime: 0.5
     sentenceSound: {fileID: 0}
     keyFlags:
@@ -23,8 +23,4 @@ MonoBehaviour:
     sentenceEvent:
       m_PersistentCalls:
         m_Calls: []
-  nextBranches:
-  - DialogueData: {fileID: 11400000}
-    KeyFlags:
-      isHappy: 0
-      isEvil: 0
+  nextBranches: []
