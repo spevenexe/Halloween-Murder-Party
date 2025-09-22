@@ -33,6 +33,8 @@ namespace DialogueSystem
 
         private DialogueSource currentDialogueSource;
         private bool typing;
+        // helps consume an input to prevent interaction from instantly playing the text
+        private bool justRemovedSource = false;
         private string currentMessage;
         private float startDialogueDelayTimer;
 
@@ -115,6 +117,7 @@ namespace DialogueSystem
             if (lastSentence)
             {
                 currentDialogueSource = null;
+                justRemovedSource = true;
             }
         }
 
@@ -184,7 +187,14 @@ namespace DialogueSystem
             return typing;
         }
 
-        public int CurrentDialogueSentenceLenght()
+        public bool JustRemovedSource() {
+            bool ret = justRemovedSource;
+            justRemovedSource = false;
+            return ret;
+        } 
+            
+
+        public int CurrentDialogueSentenceLength()
         {
             if (currentDialogueSource == null)
                 return 0;

@@ -2,7 +2,7 @@
 
 namespace DialogueSystem
 {
-    [CreateAssetMenu(fileName = "New Character", menuName = "Dialogue System/New DialogueCharacter")]
+    [CreateAssetMenu(fileName = "New Character", menuName = "Dialogue System/New Dialogue Character")]
 
     public class DialogueCharacter : ScriptableObject
     {

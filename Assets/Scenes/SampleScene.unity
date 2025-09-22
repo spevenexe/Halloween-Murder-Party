@@ -157,21 +157,7 @@ MonoBehaviour:
   OnDehighlight:
     m_PersistentCalls:
       m_Calls: []
-  sentences:
-  - dialogueCharacter: {fileID: 11400000, guid: 39f9f6ea27c06374994b6bd26b232a5b, type: 2}
-    sentence: yo what is up in this hisouse.
-    skipDelayTime: 0.5
-    sentenceSound: {fileID: 0}
-    sentenceEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - dialogueCharacter: {fileID: 11400000, guid: 39f9f6ea27c06374994b6bd26b232a5b, type: 2}
-    sentence: seppuku poopoo
-    skipDelayTime: 0.5
-    sentenceSound: {fileID: 0}
-    sentenceEvent:
-      m_PersistentCalls:
-        m_Calls: []
+  dialogueData: {fileID: 11400000, guid: aab93ce839e68da4daa77bae811dda57, type: 2}
   audioSource: {fileID: 0}
   startDialogueEvent:
     m_PersistentCalls:
@@ -708,21 +694,7 @@ MonoBehaviour:
   OnDehighlight:
     m_PersistentCalls:
       m_Calls: []
-  sentences:
-  - dialogueCharacter: {fileID: 11400000, guid: c2f5c19bf424df84a8243f9086d5d7c6, type: 2}
-    sentence: I like poop
-    skipDelayTime: 0.5
-    sentenceSound: {fileID: 0}
-    sentenceEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - dialogueCharacter: {fileID: 11400000, guid: 39f9f6ea27c06374994b6bd26b232a5b, type: 2}
-    sentence: I like poop more than you
-    skipDelayTime: 0.5
-    sentenceSound: {fileID: 0}
-    sentenceEvent:
-      m_PersistentCalls:
-        m_Calls: []
+  dialogueData: {fileID: 11400000, guid: 67a461da5b54e2b49803b120d7ad85e4, type: 2}
   audioSource: {fileID: 0}
   startDialogueEvent:
     m_PersistentCalls:
