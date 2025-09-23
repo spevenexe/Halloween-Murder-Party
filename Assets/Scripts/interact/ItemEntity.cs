@@ -17,8 +17,6 @@ namespace Interaction
 
         public override void Activate(PlayerData playerData = null)
         {
-            Debug.Log("weeee");
-
             // add to inventory
             PlayerData.instance.Inventory.Add(item);
 

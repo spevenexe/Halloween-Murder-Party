@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
+using InventorySystem;
 
 namespace DialogueSystem
 {
@@ -131,6 +132,8 @@ namespace DialogueSystem
 
             //Start displaying dialogue
             CurrentDialogueSource.StartDialogue();
+
+            InventoryUI.instance.Hide();
         }
 
         public void StopDialogue()

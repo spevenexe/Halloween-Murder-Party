@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using InventorySystem;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -164,6 +165,8 @@ namespace DialogueSystem
 
             //Remove trigger refence
             dialogueIsOn = false;
+
+            InventoryUI.instance.Show();
         }
 
         private void PlaySound(AudioClip _audioClip)

@@ -9,6 +9,8 @@ public abstract class Interactable : MonoBehaviour, IInteract
     {
         if (OnHighlight == null) OnHighlight = new();
         if (OnDehighlight == null) OnDehighlight = new();
+
+        gameObject.layer = LayerMask.NameToLayer("Interact");
     }
 
     protected virtual void OnDisable()
