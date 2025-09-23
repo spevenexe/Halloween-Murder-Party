@@ -19,7 +19,7 @@ MonoBehaviour:
     sentenceSound: {fileID: 0}
     keyFlags:
       isHappy: 0
-      isEvil: 0
+      hasItem: 0
     sentenceEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -29,7 +29,7 @@ MonoBehaviour:
     sentenceSound: {fileID: 0}
     keyFlags:
       isHappy: 0
-      isEvil: 0
+      hasItem: 0
     sentenceEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -37,8 +37,6 @@ MonoBehaviour:
   - DialogueData: {fileID: 11400000, guid: 0ea5238bb7e0ad74cba9fc59965feda1, type: 2}
     KeyFlags:
       isHappy: 0
-      isEvil: 0
-  - DialogueData: {fileID: 0}
-    KeyFlags:
-      isHappy: 0
-      isEvil: 0
+      hasItem: 0
+  interactionCost: 1
+  doLoop: 0

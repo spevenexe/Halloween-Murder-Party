@@ -28,3 +28,5 @@ MonoBehaviour:
     KeyFlags:
       isHappy: 0
       hasItem: 0
+  interactionCost: 0
+  doLoop: 0

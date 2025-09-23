@@ -19,12 +19,10 @@ MonoBehaviour:
     sentenceSound: {fileID: 0}
     keyFlags:
       isHappy: 0
-      isEvil: 0
+      hasItem: 0
     sentenceEvent:
       m_PersistentCalls:
         m_Calls: []
-  nextBranches:
-  - DialogueData: {fileID: 11400000}
-    KeyFlags:
-      isHappy: 0
-      isEvil: 0
+  nextBranches: []
+  interactionCost: 1
+  doLoop: 1

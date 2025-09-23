@@ -1,3 +1,4 @@
+using InventorySystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -33,10 +34,13 @@ public class PlayerData : Singleton<PlayerData>
     [SerializeField] private int baseAura = 1000;
     public int BaseAura { get => baseAura; }
 
+    [Header("Inventory")]
+    public Inventory Inventory { get; private set; } = new(10);
+
     protected override void Awake()
     {
         base.Awake();
-        
+
         PlayerInput playerInput = GetComponent<PlayerInput>();
         MovementInput = playerInput.actions.FindAction("Move");
         LookInput = playerInput.actions.FindAction("Look");

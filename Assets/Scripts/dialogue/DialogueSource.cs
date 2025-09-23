@@ -61,7 +61,7 @@ namespace DialogueSystem
         }
 
         //Show interaction UI
-        protected virtual void RevealInteractPrompt()
+        protected override void RevealInteractPrompt()
         {
             if (dialogueObject != null)
             {
@@ -84,7 +84,7 @@ namespace DialogueSystem
             }
         }
 
-        private void HideInteractPrompt()
+        protected override void HideInteractPrompt()
         {
             //Hide interaction UI
             DialogueUI.instance.ShowInteractionUI(false);
