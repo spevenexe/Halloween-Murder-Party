@@ -5,6 +5,53 @@ Unity Version 6000.0.41f1 LTS
 
 Uses [HeneGames's Dialogue System](https://assetstore.unity.com/packages/tools/gui/dialogue-system-248969)
 
+## How to Get the Repository Installed Locally
+
+**NOTE**: You need [Git](https://git-scm.com/)
+
+1. Open a terminal to a folder where you keep projects.
+2. **Clone** the repository: ![alt text](README-info/gitclone.png)
+```bash
+git clone https://github.com/spevenexe/Halloween-Murder-Party.git
+```
+3. This will create a folder *in* the folder you are in called `Halloween Murder Party`. You can open it in Unity and do your thing.
+
+## How to REFLECT your changes on here (the remote repository)
+
+Open a terminal to the folder of your project. Your path should look like:
+```bash
+C:\....some_stuff...\Halloween Murder Party\>
+```
+
+In that terminal execute these commands, in this order:
+
+```bash
+git add .
+```
+```bash
+git commit -m "some informative message"
+```
+```bash
+git push
+```
+
+## How to GET changes from here (the remote repository)
+
+**MAKE SURE YOU DO THIS**. Otherwise, `git` will tickle your bootyhole.
+
+1. Open a terminal to the folder of your project. Your path should look like:
+```bash
+C:\....some_stuff...\Halloween Murder Party\>
+```
+2. Execute these commands, in this order:
+```bash
+git fetch
+```
+```bash
+git pull
+```
+3. The End.
+
 ## How to Create a Character
 
 1. Create a `Dialogue Character` Scriptable Object Asset. 

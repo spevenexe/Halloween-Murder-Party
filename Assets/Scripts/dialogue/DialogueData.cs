@@ -23,7 +23,7 @@ namespace DialogueSystem
         [SerializeField] private int interactionCost = 1;
         public int InteractionCost { get => interactionCost; }
 
-        [SerializeField] private bool doLoop = false;
+        [SerializeField] private bool doLoop = true;
         public bool DoLoop { get => doLoop; }
 
         /// <summary>
