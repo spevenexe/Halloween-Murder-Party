@@ -28,6 +28,8 @@ namespace DialogueSystem
             //Hide dialogue and interaction UI at awake
             dialogueWindow.SetActive(false);
             interactionUI.SetActive(false);
+
+            dialogueOptions = DOparent.GetComponentsInChildren<DialogueOption>();
         }
 
         #endregion
@@ -53,6 +55,10 @@ namespace DialogueSystem
 
         [Range(0.1f, 1f)]
         [SerializeField] private float textAnimationSpeed = 0.5f;
+
+        [Header("Dialogue Options")]
+        [SerializeField] private GameObject DOparent;
+        private DialogueOption[] dialogueOptions;
 
         #region Handling Player Input
         private PlayerData playerData;
@@ -124,11 +130,14 @@ namespace DialogueSystem
 
         public void StartDialogue(DialogueSource _DialogueSource)
         {
+            if (_DialogueSource == null) return;
+            
             //Delay timer
             startDialogueDelayTimer = 0.1f;
 
             //Store dialogue manager
             CurrentDialogueSource = _DialogueSource;
+            stashed = CurrentDialogueSource;
 
             //Start displaying dialogue
             CurrentDialogueSource.StartDialogue();
@@ -173,6 +182,12 @@ namespace DialogueSystem
 
         public void ShowInteractionUI(bool _value, string message = "")
         {
+            if (OptionsShowing)
+            {
+                interactionUI.SetActive(false);
+                return;
+            }
+
             interactionUI.SetActive(_value);
 
             // a bit inefficient to reset the strings in this manner on each prompt, but could potentially be useful if rebinding is implemented
@@ -182,7 +197,7 @@ namespace DialogueSystem
 
         public bool IsProcessingDialogue()
         {
-            if(CurrentDialogueSource != null)
+            if (CurrentDialogueSource != null)
             {
                 return true;
             }
@@ -195,12 +210,13 @@ namespace DialogueSystem
             return typing;
         }
 
-        public bool JustRemovedSource() {
+        public bool JustRemovedSource()
+        {
             bool ret = justRemovedSource;
             justRemovedSource = false;
             return ret;
-        } 
-            
+        }
+
 
         public int CurrentDialogueSentenceLength()
         {
@@ -219,11 +235,11 @@ namespace DialogueSystem
 
             float _speed = 1f - textAnimationSpeed;
 
-            foreach(char _letter in _letters)
+            foreach (char _letter in _letters)
             {
                 _textMeshObject.text += _letter;
 
-                if(_textMeshObject.text.Length == _letters.Length)
+                if (_textMeshObject.text.Length == _letters.Length)
                 {
                     typing = false;
                 }
@@ -231,5 +247,39 @@ namespace DialogueSystem
                 yield return new WaitForSeconds(0.1f * _speed);
             }
         }
+
+        #region Dialogue Options
+
+        public DialogueSource stashed { get; private set; }
+
+        public void ShowOptions(bool _value)
+        {
+            DOparent.SetActive(_value);
+            if (!_value || stashed is null || stashed.options.Length <= 0)
+            {
+                PlayerCamera.instance.UnlockCamera();
+                return;
+            }
+
+            PlayerCamera.instance.LockCamera();
+
+            Option[] options = stashed.options;
+            int i;
+            for (i = 0; i < options.Length; i++)
+            {
+                DialogueOption current = dialogueOptions[i];
+                current.gameObject.SetActive(true);
+                current.SetOption(options[i]);
+            }
+
+            for (; i < dialogueOptions.Length; i++)
+            {
+                dialogueOptions[i].gameObject.SetActive(false);
+            }
+        }
+
+        public bool OptionsShowing => DOparent.activeSelf;
+
+        #endregion
     }
 }

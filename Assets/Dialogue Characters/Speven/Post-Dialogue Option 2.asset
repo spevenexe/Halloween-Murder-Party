@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 522c8231a462d584cb214e4b1e28bd8b, type: 3}
-  m_Name: 1
+  m_Name: Post-Dialogue Option 2
   m_EditorClassIdentifier: 
   sentences:
   - dialogueCharacter: {fileID: 11400000, guid: 39f9f6ea27c06374994b6bd26b232a5b, type: 2}
-    sentence: sup ugly
-    skipDelayTime: 0.5
+    sentence: This is option 2
+    skipDelayTime: 0
     sentenceSound: {fileID: 0}
     keyFlags:
       isHappy: 0

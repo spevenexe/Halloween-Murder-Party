@@ -23,7 +23,7 @@ public class NPC : DialogueSource
         startDialogueEvent.AddListener(AdjustInteractCount);
     }
 
-    private void AdjustInteractCount(DialogueFlags flags)
+    private void AdjustInteractCount()
     {
         if (!dialogueObject.HasBeenRead)
         {

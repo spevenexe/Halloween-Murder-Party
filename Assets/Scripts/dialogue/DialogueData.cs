@@ -26,6 +26,9 @@ namespace DialogueSystem
         [SerializeField] private bool doLoop = true;
         public bool DoLoop { get => doLoop; }
 
+        [SerializeField] private Option[] options;
+        public Option[] Options => options;
+
         /// <summary>
         /// A potential branch of dialogue. Contains dialgoue data and the flags that need to be satisfied in order to branch to that dialogue. 
         /// </summary>
@@ -51,6 +54,7 @@ namespace DialogueSystem
         public bool HasBeenRead = false;
         public int InteractionCost { get; private set; }
         public bool DoLoop { get; private set; }
+        public Option[] Options { get; private set; }
 
         public DialogueObject(DialogueData dialogueData)
         {
@@ -58,6 +62,26 @@ namespace DialogueSystem
             NextBranches = dialogueData.NextBranches;
             InteractionCost = dialogueData.InteractionCost;
             DoLoop = dialogueData.DoLoop;
+            Options = dialogueData.Options;
+        }
+
+        public virtual DialogueObject NextDialogueObject()
+        {
+            if (NextBranches != null && NextBranches.Count > 0)
+            {
+                // default behavior is first in list
+                DialogueData nextDialogueData = NextBranches[0].DialogueData;
+                return new(nextDialogueData);
+            }
+            else if (!DoLoop)
+            {
+                // no branches or looping? no more dialogue
+                return null;
+            }
+            else
+            {
+                return this;
+            }
         }
 
         /// <summary>

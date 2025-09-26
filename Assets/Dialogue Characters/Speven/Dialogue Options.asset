@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 522c8231a462d584cb214e4b1e28bd8b, type: 3}
+  m_Name: Dialogue Options
+  m_EditorClassIdentifier: 
+  sentences:
+  - dialogueCharacter: {fileID: 11400000, guid: 39f9f6ea27c06374994b6bd26b232a5b, type: 2}
+    sentence: This is an Options Test.
+    skipDelayTime: 0
+    sentenceSound: {fileID: 0}
+    keyFlags:
+      isHappy: 0
+      hasItem: 0
+    sentenceEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - dialogueCharacter: {fileID: 11400000, guid: 39f9f6ea27c06374994b6bd26b232a5b, type: 2}
+    sentence: Are you ready?
+    skipDelayTime: 0
+    sentenceSound: {fileID: 0}
+    keyFlags:
+      isHappy: 0
+      hasItem: 0
+    sentenceEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  nextBranches: []
+  interactionCost: 1
+  doLoop: 1
+  options:
+  - message: Yes
+    dialogueAfterSelect: {fileID: 11400000, guid: 7ccae7eb96a23fb40864b1638302ac9d, type: 2}
+    questData: {fileID: 11400000, guid: 24621e7a0a9a08c49ae2ee501e422758, type: 2}
+  - message: No
+    dialogueAfterSelect: {fileID: 11400000, guid: 2cfc58313b130ad49a8e15b4d40c42f4, type: 2}
+    questData: {fileID: 0}

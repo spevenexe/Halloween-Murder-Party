@@ -23,10 +23,6 @@ MonoBehaviour:
     sentenceEvent:
       m_PersistentCalls:
         m_Calls: []
-  nextBranches:
-  - DialogueData: {fileID: 11400000}
-    KeyFlags:
-      isHappy: 0
-      hasItem: 0
+  nextBranches: []
   interactionCost: 0
   doLoop: 0

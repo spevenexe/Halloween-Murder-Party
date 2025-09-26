@@ -16,6 +16,7 @@ namespace DialogueSystem
         [Header("Dialogue")]
         [SerializeField] protected DialogueData dialogueData;
         protected DialogueObject dialogueObject;
+        public Option[] options => dialogueObject.Options;
         // if the next conversation is available, this allows for smooth conversations without stopping
         private DialogueObject prev = null;
         // configure the default state of the NPC
@@ -25,9 +26,9 @@ namespace DialogueSystem
         [SerializeField] private AudioSource audioSource;
 
         [Header("Events")]
-        public UnityEvent<DialogueFlags> startDialogueEvent;
-        public UnityEvent<DialogueFlags> nextSentenceDialogueEvent;
-        public UnityEvent<DialogueFlags> endDialogueEvent;
+        public UnityEvent startDialogueEvent;
+        public UnityEvent nextSentenceDialogueEvent;
+        public UnityEvent endDialogueEvent;
 
         protected override void Awake()
         {
@@ -40,7 +41,8 @@ namespace DialogueSystem
             OnHighlight.AddListener(RevealInteractPrompt);
             OnDehighlight.AddListener(HideInteractPrompt);
 
-            endDialogueEvent.AddListener(NextDialogue);
+            startDialogueEvent.AddListener(PlayerCamera.instance.LockCamera);
+            endDialogueEvent.AddListener(NextDialogueOrOption);
         }
 
         protected override void OnDisable()
@@ -121,7 +123,7 @@ namespace DialogueSystem
             //Add one to sentence index
             currentSentence++;
 
-            nextSentenceDialogueEvent.Invoke(flags);
+            nextSentenceDialogueEvent.Invoke();
 
             //If last sentence stop dialogue and return
             if (currentSentence > dialogueObject.Sentences.Count - 1)
@@ -130,7 +132,7 @@ namespace DialogueSystem
 
                 lastSentence = true;
 
-                endDialogueEvent.Invoke(flags);
+                endDialogueEvent.Invoke();
 
                 if (PlayerData.instance.Target == this)
                     RevealInteractPrompt();
@@ -167,6 +169,8 @@ namespace DialogueSystem
             dialogueIsOn = false;
 
             InventoryUI.instance.Show();
+
+            PlayerCamera.instance.UnlockCamera();
         }
 
         private void PlaySound(AudioClip _audioClip)
@@ -218,12 +222,13 @@ namespace DialogueSystem
         {
             // either we just interacted to close the text window, or there's more (different) text
             // make sure to calculate this always, so that DialogueUI updates its value
-            // bool justRemovedSource = DialogueUI.instance.JustRemovedSource();
+            bool justRemovedSource = DialogueUI.instance.JustRemovedSource();
             if (!dialogueIsOn && dialogueObject != null &&
-            // (!justRemovedSource || (prev != dialogueObject && !dialogueObject.DoLoop)) &&
-            InteractionLimitManager.instance.NumInteracts > 0)
+            ((!justRemovedSource && dialogueObject.DoLoop) || prev != dialogueObject) &&
+            InteractionLimitManager.instance.NumInteracts >= dialogueObject.InteractionCost &&
+            !DialogueUI.instance.OptionsShowing)
             {
-                startDialogueEvent.Invoke(flags);
+                startDialogueEvent.Invoke();
 
                 //If component found start dialogue
                 DialogueUI.instance.StartDialogue(this);
@@ -236,26 +241,29 @@ namespace DialogueSystem
         }
 
         // set the next dialogue data object, if it exists. Otherwise, loop back to the beginning of the current object.
-        protected virtual void NextDialogue(DialogueFlags flags)
+        protected virtual void NextDialogueOrOption()
+        {
+            if (dialogueObject.Options.Length > 0)
+            {
+                // show options
+                DialogueUI.instance.ShowOptions(true);
+            }
+            else
+            {
+                NextDialogue();
+            }
+        }
+
+        private void NextDialogue()
         {
             if (dialogueObject != null)
             {
                 prev = dialogueObject;
-                if (dialogueObject.NextBranches != null && dialogueObject.NextBranches.Count > 0)
-                {
-                    // default behavior is first in list
-                    DialogueData nextDialogueData = dialogueObject.NextBranches[0].DialogueData;
-                    dialogueObject = new(nextDialogueData);
-                }
-                else if (!dialogueObject.DoLoop)
-                {
-                    // no branches or looping? no more dialogue
-                    dialogueObject = null;
-                }
+                dialogueObject = dialogueObject.NextDialogueObject();
             }
         }
 
-        protected void SetDialogue(DialogueData newData)
+        public void SetDialogue(DialogueData newData)
         {
             prev = dialogueObject;
             dialogueObject = new(newData);
