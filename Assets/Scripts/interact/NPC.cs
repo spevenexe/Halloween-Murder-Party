@@ -107,16 +107,22 @@ public class NPC : DialogueSource
             case NPC_Centence.EnableCheck.Risky:
                 Debug.Log("setting risky check");
                 canRiskyCheck = true;
-                RevealAccusePrompt();
                 break;
             case NPC_Centence.EnableCheck.Safe:
                 Debug.Log("setting safe check");
                 canSafeCheck = true;
-                RevealAccusePrompt();
                 break;
             default:
                 break;
         }
+    }
+
+    public override void StopDialogue()
+    {
+        base.StopDialogue();
+
+        if (canSafeCheck || canRiskyCheck)
+            AccusationUI.instance.ShowAccuseUI(true, canSafeCheck);
     }
 
     // combine with a unity event to make it work

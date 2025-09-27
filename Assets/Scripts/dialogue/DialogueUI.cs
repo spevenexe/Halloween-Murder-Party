@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
 using InventorySystem;
+using Accusation;
 
 namespace DialogueSystem
 {
@@ -135,7 +136,7 @@ namespace DialogueSystem
         public void StartDialogue(DialogueSource _DialogueSource)
         {
             if (_DialogueSource == null) return;
-            
+
             //Delay timer
             startDialogueDelayTimer = 0.1f;
 
@@ -147,6 +148,7 @@ namespace DialogueSystem
             CurrentDialogueSource.StartDialogue();
 
             InventoryUI.instance.Hide();
+            AccusationUI.instance.ShowAccuseUI(false);
         }
 
         public void StopDialogue()

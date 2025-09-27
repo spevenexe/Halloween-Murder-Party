@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Camera))]
 public class PlayerCamera : Singleton<PlayerCamera>
@@ -26,11 +27,21 @@ public class PlayerCamera : Singleton<PlayerCamera>
 
         if (Cursor.lockState != CursorLockMode.Locked) return;
 
+        float lookSensitivity = playerData.KeyBoardSensitivity;
+        if (playerData.LookInput.activeControl != null)
+        {
+            string deviceClass = playerData.LookInput.activeControl.device.description.deviceClass;
+            if (!deviceClass.Equals("Mouse") && !deviceClass.Equals("Keyboard"))
+            {
+                lookSensitivity = playerData.ControllerSensitivity;
+            }
+        }
+
         // rotation
         // note that the values are flipped when read, since rotations occur *around* an axis.
-        xRotation -= playerData.LookDelta.y * playerData.LookSensitivity;
+        xRotation -= playerData.LookDelta.y * lookSensitivity;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-        yRotation += playerData.LookDelta.x * playerData.LookSensitivity;
+        yRotation += playerData.LookDelta.x * lookSensitivity;
 
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
 

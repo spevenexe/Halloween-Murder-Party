@@ -10,8 +10,11 @@ public class PlayerData : Singleton<PlayerData>
     public InputAction LookInput;
     public InputAction InteractInput;
     public InputAction AccuseInput;
-    [SerializeField] private float lookSensitivity;
-    public float LookSensitivity { get => lookSensitivity; }
+    public InputAction PauseInput;
+    [SerializeField] private float keyboardLookSensitivity;
+    public float KeyBoardSensitivity { get => keyboardLookSensitivity; }
+    [SerializeField] private float controllerSensitivity;
+    public float ControllerSensitivity { get => controllerSensitivity; }
 
     [Header("Camera")]
     public Vector2 LookDelta { get; set; }
@@ -37,6 +40,9 @@ public class PlayerData : Singleton<PlayerData>
     [Header("Inventory")]
     public Inventory Inventory { get; private set; } = new(10);
 
+    [Header("Pausing")]
+    public bool isPaused = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -46,5 +52,7 @@ public class PlayerData : Singleton<PlayerData>
         LookInput = playerInput.actions.FindAction("Look");
         InteractInput = playerInput.actions.FindAction("Interact");
         AccuseInput = playerInput.actions.FindAction("Accuse");
+        PauseInput = playerInput.actions.FindAction("Pause");
+        isPaused = false;
     }
 }

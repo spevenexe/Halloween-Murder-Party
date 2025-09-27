@@ -154,7 +154,7 @@ namespace DialogueSystem
             coolDownTimer = dialogueObject.Sentences[currentSentence].skipDelayTime;
         }
 
-        public void StopDialogue()
+        public virtual void StopDialogue()
         {
             //Hide dialogue UI
             DialogueUI.instance.ClearText();
