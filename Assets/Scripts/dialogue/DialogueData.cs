@@ -32,6 +32,9 @@ namespace DialogueSystem
         [SerializeField] private bool isGameOver = false;
         public bool IsGameOver => isGameOver;
 
+        [SerializeField] private bool isGameWon = false;
+        public bool IsGameWon => isGameWon;
+
         /// <summary>
         /// A potential branch of dialogue. Contains dialgoue data and the flags that need to be satisfied in order to branch to that dialogue. 
         /// </summary>
@@ -59,6 +62,7 @@ namespace DialogueSystem
         public bool DoLoop { get; private set; }
         public Option[] Options { get; private set; }
         public bool IsGameOver { get; private set; }
+        public bool GameWon { get; private set; }
 
         public DialogueObject(DialogueData dialogueData)
         {
@@ -68,6 +72,7 @@ namespace DialogueSystem
             DoLoop = dialogueData.DoLoop;
             Options = dialogueData.Options;
             IsGameOver = dialogueData.IsGameOver;
+            GameWon = dialogueData.IsGameWon;
         }
 
         public virtual DialogueObject NextDialogueObject()

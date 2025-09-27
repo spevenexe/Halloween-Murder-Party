@@ -218,11 +218,7 @@ namespace DialogueSystem
             }
             else
             {
-                DialogueCharacter _dialogueCharacter = new DialogueCharacter();
-                _dialogueCharacter.characterName = "";
-                _dialogueCharacter.characterPhoto = null;
-
-                DialogueUI.instance.ShowSentence(_dialogueCharacter, current.sentence, display);
+                DialogueUI.instance.ShowSentence(null, current.sentence, display);
             }
         }
 
@@ -287,9 +283,18 @@ namespace DialogueSystem
 
         public void TryGameOver()
         {
-            if (dialogueObject != null && dialogueObject.IsGameOver)
+            bool IsGameOver = dialogueObject != null ? dialogueObject.IsGameOver : prev.IsGameOver;
+
+            if (IsGameOver)
             {
-                SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % SceneManager.sceneCountInBuildSettings);
+                GameManager.instance.GameOver();
+            }
+
+            bool IsGameWon = dialogueObject != null ? dialogueObject.GameWon : prev.GameWon;
+
+            if (IsGameWon)
+            {
+                GameManager.instance.WinGame();
             }
         }
     }

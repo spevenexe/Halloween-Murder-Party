@@ -14,7 +14,6 @@ namespace Accusation
             if (instance == null)
             {
                 instance = this;
-                DontDestroyOnLoad(gameObject);
             }
             else
             {
@@ -37,6 +36,8 @@ namespace Accusation
         public void ShowAccuseUI(bool _value, bool isSafe=false)
         {
             interactionUI.SetActive(_value);
+
+            if (!_value) return;
 
             string safetyLevel = isSafe ? "Safe" : "Risky";
 

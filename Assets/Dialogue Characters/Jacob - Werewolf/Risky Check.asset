@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 522c8231a462d584cb214e4b1e28bd8b, type: 3}
+  m_Name: Risky Check
+  m_EditorClassIdentifier: 
+  sentences:
+  - dialogueCharacter: {fileID: 11400000, guid: 12ed473f7fe6bdb428737816d4cc15ad, type: 2}
+    sentence: "Hey Jacob, I heard there\u2019s more drinks hidden in the shed in
+      the backyard."
+    skipDelayTime: 0
+    sentenceSound: {fileID: 0}
+    questData: {fileID: 0}
+    display: 2
+    enableCheck: 0
+  - dialogueCharacter: {fileID: 11400000, guid: f25ddffb9d790774bbf822b1f49b1199, type: 2}
+    sentence: "HELL YEAH DUDE! I\u2019M GONNA GO BEAST MODE!\r\n"
+    skipDelayTime: 0
+    sentenceSound: {fileID: 0}
+    questData: {fileID: 0}
+    display: 1
+    enableCheck: 0
+  - dialogueCharacter: {fileID: 11400000, guid: 12ed473f7fe6bdb428737816d4cc15ad, type: 2}
+    sentence: "(You lead him out back, and lock him in the shed.)\r"
+    skipDelayTime: 0
+    sentenceSound: {fileID: 0}
+    questData: {fileID: 0}
+    display: 2
+    enableCheck: 0
+  - dialogueCharacter: {fileID: 11400000, guid: f25ddffb9d790774bbf822b1f49b1199, type: 2}
+    sentence: "What the hell bro! How am I supposed to find these drinks if I can\u2019t
+      see? Bro let me out this isn\u2019t funny anymore! I don\u2019t like the dark!
+      LET ME OUT! "
+    skipDelayTime: 0
+    sentenceSound: {fileID: 0}
+    questData: {fileID: 0}
+    display: 1
+    enableCheck: 0
+  nextBranches: []
+  interactionCost: 0
+  doLoop: 0
+  options: []
+  isGameOver: 1
