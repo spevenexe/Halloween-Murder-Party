@@ -243,7 +243,9 @@ namespace DialogueSystem
         // set the next dialogue data object, if it exists. Otherwise, loop back to the beginning of the current object.
         protected virtual void NextDialogueOrOption()
         {
-            if (dialogueObject.Options.Length > 0)
+            if (dialogueObject != null &&
+                dialogueObject.Options != null &&
+             dialogueObject.Options.Length > 0)
             {
                 // show options
                 DialogueUI.instance.ShowOptions(true);
