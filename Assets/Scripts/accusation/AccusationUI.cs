@@ -41,7 +41,7 @@ namespace Accusation
             string safetyLevel = isSafe ? "Safe" : "Risky";
 
             // a bit inefficient to reset the strings in this manner on each prompt, but could potentially be useful if rebinding is implemented
-            interactionUIPrompt.text = $"[{playerData.AccuseInput.GetBindingDisplayString()}] Accuse ({safetyLevel})";
+            interactionUIPrompt.text = $"{playerData.AccuseInput.GetBindingDisplayString()} - Accuse ({safetyLevel})";
         }
     }
 }

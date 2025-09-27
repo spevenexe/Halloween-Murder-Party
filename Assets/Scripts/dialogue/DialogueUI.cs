@@ -50,6 +50,10 @@ namespace DialogueSystem
         [SerializeField] private TMP_Text interactionUIPrompt;
         [SerializeField] private TMP_Text nextMessagePrompt;
 
+        // to move the characte display around
+        [SerializeField] private RectTransform leftDisplay, rightDisplay;
+        [SerializeField] private RectTransform characterDisplayTransform;
+
         [Header("Settings")]
         [SerializeField] private bool animateText = true;
 
@@ -150,7 +154,7 @@ namespace DialogueSystem
             if (CurrentDialogueSource != null) CurrentDialogueSource.StopDialogue();
         }
 
-        public void ShowSentence(DialogueCharacter _dialogueCharacter, string _message)
+        public void ShowSentence(DialogueCharacter _dialogueCharacter, string _message,NPC_Centence.DisplaySide display = NPC_Centence.DisplaySide.Auto)
         {
             StopAllCoroutines();
 
@@ -159,6 +163,18 @@ namespace DialogueSystem
             portrait.sprite = _dialogueCharacter.characterPhoto;
             nameText.text = _dialogueCharacter.characterName;
             currentMessage = _message;
+
+            // set the location of the text
+            switch (display)
+            {
+                case NPC_Centence.DisplaySide.Right:
+                    characterDisplayTransform.position = rightDisplay.position;
+                    break;
+                case NPC_Centence.DisplaySide.Left:
+                default:
+                    characterDisplayTransform.position = leftDisplay.position;
+                    break;
+            }
 
             if (animateText)
             {
@@ -192,7 +208,7 @@ namespace DialogueSystem
 
             // a bit inefficient to reset the strings in this manner on each prompt, but could potentially be useful if rebinding is implemented
             interactionUIPrompt.text = message;
-            nextMessagePrompt.text = $"[{playerData.InteractInput.GetBindingDisplayString()}] Continue";
+            nextMessagePrompt.text = $"{playerData.InteractInput.GetBindingDisplayString()} - Continue";
         }
 
         public bool IsProcessingDialogue()

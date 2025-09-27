@@ -6,12 +6,21 @@ public class NPC : DialogueSource
 {
     [SerializeField] private bool isMonster;
     public bool IsMonster { get => isMonster; }
-    public bool canRiskyCheck = true;
+    public bool canRiskyCheck = false;
     public bool canSafeCheck = false;
+
+    public DialogueCharacter character;
 
     [SerializeField] private DialogueData riskyCheckSuccessDialogue;
     [SerializeField] private DialogueData riskyCheckFailDialogue;
     [SerializeField] private DialogueData safeCheckDialogue; // the monster is predetermined, so there's no need for two of these
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        tag = "NPC";
+    }
 
     protected override void OnEnable()
     {
@@ -53,7 +62,7 @@ public class NPC : DialogueSource
         // check the flags
         bool success;
         // TODO - Some calculation of aura
-        AccusationManager.instance.CalculateAuraPenalty(this,out int auraDelta);
+        AccusationManager.instance.CalculateAuraPenalty(this, out int auraDelta);
         success = auraDelta > 0;
 
         // load the accusation DialogueData if successful
@@ -77,6 +86,7 @@ public class NPC : DialogueSource
         canSafeCheck = false;
 
         // load the dialogue
+        SetDialogue(safeCheckDialogue);
 
         // return whether the character is a monster. This is probably not necessary, since the dialogue should tell you if its the monster
         return isMonster;
@@ -86,6 +96,27 @@ public class NPC : DialogueSource
     {
         if (canSafeCheck) EvaluateSafeCheck(playerData);
         else if (canRiskyCheck) EvaluateRiskyCheck(playerData);
+    }
+
+    protected override void ShowCurrentSentence()
+    {
+        base.ShowCurrentSentence();
+        var sentence = dialogueObject.Sentences[currentSentence];
+        switch (sentence.enableCheck)
+        {
+            case NPC_Centence.EnableCheck.Risky:
+                Debug.Log("setting risky check");
+                canRiskyCheck = true;
+                RevealAccusePrompt();
+                break;
+            case NPC_Centence.EnableCheck.Safe:
+                Debug.Log("setting safe check");
+                canSafeCheck = true;
+                RevealAccusePrompt();
+                break;
+            default:
+                break;
+        }
     }
 
     // combine with a unity event to make it work

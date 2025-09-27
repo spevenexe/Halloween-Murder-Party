@@ -26,7 +26,7 @@ namespace Interaction
 
         protected override void RevealInteractPrompt()
         {
-            string message = $"[{PlayerData.instance.InteractInput.GetBindingDisplayString()}] Collect";
+            string message = $"{PlayerData.instance.InteractInput.GetBindingDisplayString()} - Collect";
 
             DialogueUI.instance.ShowInteractionUI(true, message);
         }

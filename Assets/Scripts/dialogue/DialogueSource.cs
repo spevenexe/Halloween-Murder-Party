@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using InventorySystem;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -9,7 +10,7 @@ namespace DialogueSystem
 {
     public class DialogueSource : Interactable
     {
-        private int currentSentence;
+        protected int currentSentence;
         private float coolDownTimer;
         private bool dialogueIsOn;
 
@@ -20,7 +21,7 @@ namespace DialogueSystem
         // if the next conversation is available, this allows for smooth conversations without stopping
         private DialogueObject prev = null;
         // configure the default state of the NPC
-        [SerializeField] protected DialogueFlags flags = new();
+        protected DialogueFlags flags = new();
 
         [Header("References")]
         [SerializeField] private AudioSource audioSource;
@@ -68,7 +69,7 @@ namespace DialogueSystem
         {
             if (dialogueObject != null)
             {
-                string message = $"[{PlayerData.instance.InteractInput.GetBindingDisplayString()}] Talk";
+                string message = $"{PlayerData.instance.InteractInput.GetBindingDisplayString()} - Talk";
 
                 if (!dialogueObject.HasBeenRead)
                 {
@@ -186,28 +187,31 @@ namespace DialogueSystem
             audioSource.PlayOneShot(_audioClip);
         }
 
-        private void ShowCurrentSentence()
+        protected virtual void ShowCurrentSentence()
         {
             var sentences = dialogueObject.Sentences;
-            if (sentences[currentSentence].dialogueCharacter != null)
+            var current = sentences[currentSentence];
+
+            NPC_Centence.DisplaySide display = current.display;
+            if (display == NPC_Centence.DisplaySide.Auto)
             {
-                //Show sentence on the screen
-                DialogueUI.instance.ShowSentence(sentences[currentSentence].dialogueCharacter, sentences[currentSentence].sentence);
-
-                //Invoke sentence event
-                sentences[currentSentence].sentenceEvent.Invoke(flags);
+                display = (currentSentence % 2 == 0) ? NPC_Centence.DisplaySide.Left : NPC_Centence.DisplaySide.Right; 
             }
-            else
-            {
-                DialogueCharacter _dialogueCharacter = new DialogueCharacter();
-                _dialogueCharacter.characterName = "";
-                _dialogueCharacter.characterPhoto = null;
 
-                DialogueUI.instance.ShowSentence(_dialogueCharacter, sentences[currentSentence].sentence);
+            if (current.dialogueCharacter != null)
+                {
+                    //Show sentence on the screen
+                    DialogueUI.instance.ShowSentence(current.dialogueCharacter, current.sentence, display);
+                }
+                else
+                {
+                    DialogueCharacter _dialogueCharacter = new DialogueCharacter();
+                    _dialogueCharacter.characterName = "";
+                    _dialogueCharacter.characterPhoto = null;
 
-                //Invoke sentence event
-                dialogueObject.Sentences[currentSentence].sentenceEvent.Invoke(flags);
-            }
+                    DialogueUI.instance.ShowSentence(_dialogueCharacter, current.sentence, display);
+                }
+            
         }
 
         public int CurrentSentenceLength()
@@ -286,8 +290,23 @@ namespace DialogueSystem
 
         public AudioClip sentenceSound;
 
-        [SerializeField] private DialogueFlags keyFlags;
+        private DialogueFlags keyFlags;
 
-        public UnityEvent<DialogueFlags> sentenceEvent;
+        public enum DisplaySide
+        {
+            Auto,
+            Left,
+            Right
+        }
+
+        public enum EnableCheck
+        {
+            None,
+            Risky,
+            Safe
+        }
+
+        public DisplaySide display = DisplaySide.Auto;
+        public EnableCheck enableCheck = EnableCheck.None;
     }
 }
