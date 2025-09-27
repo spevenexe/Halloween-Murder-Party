@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using InventorySystem;
+using QuestSystem;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace DialogueSystem
 {
@@ -17,6 +19,7 @@ namespace DialogueSystem
         [Header("Dialogue")]
         [SerializeField] protected DialogueData dialogueData;
         protected DialogueObject dialogueObject;
+        protected DialogueData cache;
         public Option[] options => dialogueObject.Options;
         // if the next conversation is available, this allows for smooth conversations without stopping
         private DialogueObject prev = null;
@@ -44,6 +47,7 @@ namespace DialogueSystem
 
             startDialogueEvent.AddListener(PlayerCamera.instance.LockCamera);
             endDialogueEvent.AddListener(NextDialogueOrOption);
+            endDialogueEvent.AddListener(TryGameOver);
         }
 
         protected override void OnDisable()
@@ -80,11 +84,11 @@ namespace DialogueSystem
                     else
                     {
                         string plurality = (dialogueObject.InteractionCost == 1) ? "Interaction" : "Interactions";
-                        message += string.Format(" (Costs {0} {1})",dialogueObject.InteractionCost,plurality);
+                        message += string.Format(" (Costs {0} {1})", dialogueObject.InteractionCost, plurality);
                     }
                 }
 
-                DialogueUI.instance.ShowInteractionUI(true,message);
+                DialogueUI.instance.ShowInteractionUI(true, message);
             }
         }
 
@@ -99,6 +103,15 @@ namespace DialogueSystem
 
         public void StartDialogue()
         {
+            if (cache != null)
+            {
+                SetDialogue(cache);
+                cache = null;
+            }
+
+            startDialogueEvent.Invoke();
+            dialogueIsOn = true;
+
             //Reset sentence index
             currentSentence = 0;
 
@@ -151,7 +164,7 @@ namespace DialogueSystem
             ShowCurrentSentence();
 
             //Cooldown timer
-            coolDownTimer = dialogueObject.Sentences[currentSentence].skipDelayTime;
+            coolDownTimer = dialogueObject.Sentences[currentSentence % dialogueObject.Sentences.Count].skipDelayTime;
         }
 
         public virtual void StopDialogue()
@@ -195,23 +208,22 @@ namespace DialogueSystem
             NPC_Centence.DisplaySide display = current.display;
             if (display == NPC_Centence.DisplaySide.Auto)
             {
-                display = (currentSentence % 2 == 0) ? NPC_Centence.DisplaySide.Left : NPC_Centence.DisplaySide.Right; 
+                display = (currentSentence % 2 == 0) ? NPC_Centence.DisplaySide.Left : NPC_Centence.DisplaySide.Right;
             }
 
             if (current.dialogueCharacter != null)
-                {
-                    //Show sentence on the screen
-                    DialogueUI.instance.ShowSentence(current.dialogueCharacter, current.sentence, display);
-                }
-                else
-                {
-                    DialogueCharacter _dialogueCharacter = new DialogueCharacter();
-                    _dialogueCharacter.characterName = "";
-                    _dialogueCharacter.characterPhoto = null;
+            {
+                //Show sentence on the screen
+                DialogueUI.instance.ShowSentence(current.dialogueCharacter, current.sentence, display);
+            }
+            else
+            {
+                DialogueCharacter _dialogueCharacter = new DialogueCharacter();
+                _dialogueCharacter.characterName = "";
+                _dialogueCharacter.characterPhoto = null;
 
-                    DialogueUI.instance.ShowSentence(_dialogueCharacter, current.sentence, display);
-                }
-            
+                DialogueUI.instance.ShowSentence(_dialogueCharacter, current.sentence, display);
+            }
         }
 
         public int CurrentSentenceLength()
@@ -232,15 +244,7 @@ namespace DialogueSystem
             InteractionLimitManager.instance.NumInteracts >= dialogueObject.InteractionCost &&
             !DialogueUI.instance.OptionsShowing)
             {
-                startDialogueEvent.Invoke();
-
-                //If component found start dialogue
                 DialogueUI.instance.StartDialogue(this);
-
-                //Hide interaction UI
-                DialogueUI.instance.ShowInteractionUI(false);
-
-                dialogueIsOn = true;
             }
         }
 
@@ -273,6 +277,20 @@ namespace DialogueSystem
         {
             prev = dialogueObject;
             dialogueObject = new(newData);
+            cache = null;
+        }
+
+        public void EnqueueDialogue(DialogueData newData)
+        {
+            cache = newData;
+        }
+
+        public void TryGameOver()
+        {
+            if (dialogueObject.IsGameOver)
+            {
+                SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % SceneManager.sceneCountInBuildSettings);
+            }
         }
     }
 
@@ -291,6 +309,8 @@ namespace DialogueSystem
         public AudioClip sentenceSound;
 
         private DialogueFlags keyFlags;
+
+        public QuestData questData;
 
         public enum DisplaySide
         {

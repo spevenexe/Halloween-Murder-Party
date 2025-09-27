@@ -1,12 +1,15 @@
+using DialogueSystem;
 using UnityEngine;
 
 namespace QuestSystem
 {
+    [System.Serializable]
     public class Quest
     {
-        private QuestData data;
+        [SerializeField] private QuestData data;
         public string Title => data.Title;
         public string Description => data.Description;
+        public DialogueData CompletionDialogue => data.CompletedDialogue;
         public enum QuestState
         {
             NotStarted,
@@ -35,6 +38,7 @@ namespace QuestSystem
         public bool Equals(Quest other)
         {
             if (other is null) return false;
+            else if (data == null) return other.data == null;
             else
             {
                 return Title == other.Title;
@@ -56,6 +60,11 @@ namespace QuestSystem
         {
             if (q1 is null) return !(q2 is null);
             return !q1.Equals(q2);
+        }
+
+        public override string ToString()
+        {
+            return Title;
         }
     }
 }

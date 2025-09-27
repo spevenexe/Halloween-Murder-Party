@@ -45,4 +45,10 @@ MonoBehaviour:
   nextBranches: []
   interactionCost: 1
   doLoop: 1
-  options: []
+  options:
+  - message: "I\u2019ve never heard of it. What\u2019s it about?"
+    dialogueAfterSelect: {fileID: 11400000, guid: 30965c92f36715b4b9fb685115710f77, type: 2}
+    questData: {fileID: 0}
+  - message: "What\u2019s so scary about marmots?"
+    dialogueAfterSelect: {fileID: 11400000, guid: 30965c92f36715b4b9fb685115710f77, type: 2}
+    questData: {fileID: 0}

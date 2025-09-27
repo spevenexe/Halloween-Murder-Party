@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEditor;
 #endif
 
-public class GameManager : DontDestroySingleton<GameManager>
+public class GameManager : Singleton<GameManager>
 {
     public void LoadScene()
     {

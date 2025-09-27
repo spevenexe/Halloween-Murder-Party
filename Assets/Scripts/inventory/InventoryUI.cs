@@ -8,7 +8,7 @@ using UnityEditor;
 
 namespace InventorySystem
 {
-    public class InventoryUI : DontDestroySingleton<InventoryUI>
+    public class InventoryUI : Singleton<InventoryUI>
     {
         [SerializeField] private GameObject hotbarRoot;
         private HotbarSlot[] hotbar;

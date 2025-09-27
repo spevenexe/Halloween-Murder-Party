@@ -76,10 +76,10 @@ public class NPC : DialogueSource
             SetDialogue(riskyCheckFailDialogue);
         }
 
-        Activate();
+        DialogueUI.instance.StartDialogue(this);
     }
 
-    private bool EvaluateSafeCheck(PlayerData playerData = null)
+    private void EvaluateSafeCheck(PlayerData playerData = null)
     {
         DialogueUI.instance.StopDialogue();
         canRiskyCheck = false;
@@ -87,9 +87,7 @@ public class NPC : DialogueSource
 
         // load the dialogue
         SetDialogue(safeCheckDialogue);
-
-        // return whether the character is a monster. This is probably not necessary, since the dialogue should tell you if its the monster
-        return isMonster;
+        DialogueUI.instance.StartDialogue(this);
     }
 
     public void EvaluateCheck(PlayerData playerData = null)
@@ -105,7 +103,6 @@ public class NPC : DialogueSource
         switch (sentence.enableCheck)
         {
             case NPC_Centence.EnableCheck.Risky:
-                Debug.Log("setting risky check");
                 canRiskyCheck = true;
                 break;
             case NPC_Centence.EnableCheck.Safe:

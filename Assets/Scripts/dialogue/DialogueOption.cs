@@ -37,15 +37,14 @@ namespace DialogueSystem
 
         public void SelectOption()
         {
-            Debug.Log($"selected {option.message}");
-
             DialogueUI.instance.ShowOptions(false);
 
             DialogueSource stashed = DialogueUI.instance.stashed;
             stashed.SetDialogue(option.dialogueAfterSelect);
             DialogueUI.instance.StartDialogue(stashed);
 
-            QuestManager.instance.StartQuest(new(option.questData));
+            if(option.questData != null)
+                QuestManager.instance.StartQuest(new(option.questData));
         }
     }
 }

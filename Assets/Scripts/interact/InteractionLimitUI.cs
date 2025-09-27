@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class InteractionLimitUI : DontDestroySingleton<InteractionLimitUI>
+public class InteractionLimitUI : Singleton<InteractionLimitUI>
 {
     [SerializeField] private TMP_Text counter;
 

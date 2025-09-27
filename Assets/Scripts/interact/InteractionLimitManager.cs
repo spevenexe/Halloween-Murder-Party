@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class InteractionLimitManager : DontDestroySingleton<InteractionLimitManager>
+public class InteractionLimitManager : Singleton<InteractionLimitManager>
 {
     [SerializeField] private int numInteracts = 5;
     public int NumInteracts { get => numInteracts; }

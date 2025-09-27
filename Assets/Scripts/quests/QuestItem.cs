@@ -6,7 +6,7 @@ namespace QuestSystem
 {
     public class QuestItem : ItemEntity
     {
-        [SerializeField] private QuestGiver npc;
+        [SerializeField] private QuestData questData;
         [SerializeField] private DialogueData questItemCollectedDialogue;
         private Quest quest;
 
@@ -15,14 +15,14 @@ namespace QuestSystem
         {
             base.Awake();
 
-            quest = npc.Quest;
+            quest = new(questData);
         }
 
         public override void Activate(PlayerData playerData = null)
         {
             base.Activate(playerData);
 
-            npc.SatisfyQuest();
+            QuestManager.instance.CompleteQuest(quest);
         }
     }
 }

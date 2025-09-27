@@ -20,7 +20,7 @@ namespace DialogueSystem
         public List<Branch> NextBranches { get => nextBranches; }
 
         // for checking whether to decrement the number of remaining interactions
-        [SerializeField] private int interactionCost = 1;
+        [SerializeField] private int interactionCost = 0;
         public int InteractionCost { get => interactionCost; }
 
         [SerializeField] private bool doLoop = true;
@@ -28,6 +28,9 @@ namespace DialogueSystem
 
         [SerializeField] private Option[] options;
         public Option[] Options => options;
+
+        [SerializeField] private bool isGameOver = false;
+        public bool IsGameOver => isGameOver;
 
         /// <summary>
         /// A potential branch of dialogue. Contains dialgoue data and the flags that need to be satisfied in order to branch to that dialogue. 
@@ -55,6 +58,7 @@ namespace DialogueSystem
         public int InteractionCost { get; private set; }
         public bool DoLoop { get; private set; }
         public Option[] Options { get; private set; }
+        public bool IsGameOver { get; private set; }
 
         public DialogueObject(DialogueData dialogueData)
         {
@@ -63,6 +67,7 @@ namespace DialogueSystem
             InteractionCost = dialogueData.InteractionCost;
             DoLoop = dialogueData.DoLoop;
             Options = dialogueData.Options;
+            IsGameOver = dialogueData.IsGameOver;
         }
 
         public virtual DialogueObject NextDialogueObject()

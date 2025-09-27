@@ -24,6 +24,8 @@ public class PlayerInteract : PlayerSystem
     private void Interact(InputAction.CallbackContext context)
     {
         if (playerData.Target != null)
+        {
             playerData.Target.Activate(playerData);
+        }
     }
 }

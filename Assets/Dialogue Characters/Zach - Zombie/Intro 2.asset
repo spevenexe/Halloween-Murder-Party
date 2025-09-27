@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 522c8231a462d584cb214e4b1e28bd8b, type: 3}
+  m_Name: Intro 2
+  m_EditorClassIdentifier: 
+  sentences:
+  - dialogueCharacter: {fileID: 11400000, guid: 96ca413395052e340a018fbd2635990e, type: 2}
+    sentence: "Well these marmots were sent into space for science reasons and they
+      were doing all these crazy dudes were doing experiments on them and stuff so
+      they get really smart and start coming back to earth to kill us all dude!\r"
+    skipDelayTime: 0
+    sentenceSound: {fileID: 0}
+    display: 0
+    enableCheck: 0
+  - dialogueCharacter: {fileID: 11400000, guid: 12ed473f7fe6bdb428737816d4cc15ad, type: 2}
+    sentence: "Sounds cool uhh\u2026 dude.\r"
+    skipDelayTime: 0
+    sentenceSound: {fileID: 0}
+    display: 0
+    enableCheck: 0
+  - dialogueCharacter: {fileID: 11400000, guid: 96ca413395052e340a018fbd2635990e, type: 2}
+    sentence: "Dude all this talking about science has got my mouth totally dried
+      out man. You think you could go get me a drink from the fridge? You\u2019d
+      be upgraded from a Bromigo to a Full-On Compadre!\r"
+    skipDelayTime: 0
+    sentenceSound: {fileID: 0}
+    display: 0
+    enableCheck: 0
+  nextBranches: []
+  interactionCost: 0
+  doLoop: 1
+  options:
+  - message: "Why can\u2019t you get it yourself?"
+    dialogueAfterSelect: {fileID: 11400000, guid: dea7eea30aca0f14d836b784750f3ed4, type: 2}
+    questData: {fileID: 0}
+  - message: Sure, I can grab you something.
+    dialogueAfterSelect: {fileID: 11400000, guid: 6d73feca035a5f845804658687020e9d, type: 2}
+    questData: {fileID: 0}

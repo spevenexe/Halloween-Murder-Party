@@ -1,3 +1,4 @@
+using DialogueSystem;
 using UnityEngine;
 
 namespace QuestSystem
@@ -11,5 +12,8 @@ namespace QuestSystem
         [TextArea(3, 10)]
         [SerializeField] private string description;
         public string Description => description;
+
+        [SerializeField] private DialogueData completedDialogue;
+        public DialogueData CompletedDialogue => completedDialogue;
     }
 }

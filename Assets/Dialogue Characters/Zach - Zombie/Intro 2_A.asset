@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 522c8231a462d584cb214e4b1e28bd8b, type: 3}
+  m_Name: Intro 2_A
+  m_EditorClassIdentifier: 
+  sentences:
+  - dialogueCharacter: {fileID: 11400000, guid: 96ca413395052e340a018fbd2635990e, type: 2}
+    sentence: "Dude, I\u2019m just totally zonked after working for the man today.
+      My uncle hooked me up with this uhh.. gardening job, if you know what I mean,
+      that\u2019s why I\u2019m also covered in dirt and stuff dude."
+    skipDelayTime: 0
+    sentenceSound: {fileID: 0}
+    display: 0
+    enableCheck: 0
+  nextBranches: []
+  interactionCost: 0
+  doLoop: 1
+  options:
+  - message: 'Is there something I can do to get your energy back? '
+    dialogueAfterSelect: {fileID: 11400000, guid: 563684b3652f3544f9981bd2b1ea733f, type: 2}
+    questData: {fileID: 0}
+  - message: Does your uncle have you working around a graveyard by any chance?
+    dialogueAfterSelect: {fileID: 11400000, guid: 02ae598d726a8fa4bba7d6d6b709d909, type: 2}
+    questData: {fileID: 0}

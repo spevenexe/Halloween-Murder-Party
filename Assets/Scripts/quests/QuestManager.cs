@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace QuestSystem
 {
-    public class QuestManager : DontDestroySingleton<QuestManager>
+    public class QuestManager : Singleton<QuestManager>
     {
-        private List<Quest> activeQuests = new();
-        private List<Quest> completedQuests = new();
+        [SerializeField] private List<Quest> activeQuests;
+        [SerializeField] private List<Quest> completedQuests;
 
         public UnityEvent<Quest> questStarted;
         public UnityEvent<Quest> questCompleted;
@@ -32,9 +32,11 @@ namespace QuestSystem
 
         public void StartQuest(Quest quest)
         {
-            Debug.Log(quest);
-
-            if (completedQuests.Contains(quest)) return;
+            if (completedQuests.Contains(quest))
+            {
+                questCompleted.Invoke(quest);
+                return;
+            }
 
             activeQuests.Add(quest);
             questStarted.Invoke(quest);

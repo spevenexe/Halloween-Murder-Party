@@ -19,7 +19,6 @@ namespace DialogueSystem
             if (instance == null)
             {
                 instance = this;
-                DontDestroyOnLoad(gameObject);
             }
             else
             {
@@ -149,6 +148,8 @@ namespace DialogueSystem
 
             InventoryUI.instance.Hide();
             AccusationUI.instance.ShowAccuseUI(false);
+            ShowInteractionUI(false);
+            ShowOptions(false);
         }
 
         public void StopDialogue()
@@ -275,7 +276,7 @@ namespace DialogueSystem
             DOparent.SetActive(_value);
             if (!_value || stashed is null || stashed.options.Length <= 0)
             {
-                PlayerCamera.instance.UnlockCamera();
+                // PlayerCamera.instance.UnlockCamera();
                 return;
             }
 

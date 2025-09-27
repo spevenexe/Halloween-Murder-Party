@@ -5,46 +5,52 @@ namespace QuestSystem
 {
     public class QuestGiver : NPC
     {
-        [SerializeField] private QuestData questData;
-        public Quest Quest { get; private set; }
+        [SerializeField] private Quest quest = null;
+        public Quest Quest => quest;
 
-        [SerializeField] private DialogueData questSatisfiedDialogue;
 
         protected override void Awake()
         {
             base.Awake();
-
-            Quest = new(questData);
         }
 
         protected override void OnEnable()
         {
             base.OnEnable();
 
-            endDialogueEvent.AddListener(TryCompleteQuest);
+            QuestManager.instance.questCompleted.AddListener(TryCompleteQuest);
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+
         }
 
         public void SetQuest(Quest quest)
         {
-            this.Quest = quest;
+            this.quest = quest;
         }
 
-        private void TryCompleteQuest()
+        private void TryCompleteQuest(Quest q)
         {
-            if (Quest == null || Quest.completionState != Quest.QuestState.CanTurnIn) return;
+            if (this.quest == null || quest != q) return;
 
-            canSafeCheck = true; // the payoff
-
-            Quest.completionState = Quest.QuestState.Complete;
-            QuestManager.instance.questCompleted.Invoke(Quest);
-
-            Quest = null; // to prevent re-accepting the quest
+            EnqueueDialogue(q.CompletionDialogue);
+            this.quest = null; // to prevent re-accepting the quest
         }
 
-        public void SatisfyQuest()
+        protected override void ShowCurrentSentence()
         {
-            SetDialogue(questSatisfiedDialogue);
-            Quest.completionState = Quest.QuestState.CanTurnIn;
+            base.ShowCurrentSentence();
+            var sentences = dialogueObject.Sentences;
+            var current = sentences[currentSentence];
+
+            if (current.questData != null)
+            {
+                quest = new(current.questData);
+                QuestManager.instance.StartQuest(quest);
+            }
         }
     }
 }
