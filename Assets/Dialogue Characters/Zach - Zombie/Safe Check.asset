@@ -29,13 +29,13 @@ MonoBehaviour:
     questData: {fileID: 0}
     display: 1
     enableCheck: 0
-  - dialogueCharacter: {fileID: 0}
-    sentence: "*Zach\u2019s arm quickly hits the table hard*. Heads turn, and you
-      hear heavy footsteps behind you.\r\n"
+  - dialogueCharacter: {fileID: 11400000, guid: 96ca413395052e340a018fbd2635990e, type: 2}
+    sentence: "*Zach\u2019s arm quickly hits the table hard*. You hear heavy footsteps
+      behind you.\r\n"
     skipDelayTime: 0
     sentenceSound: {fileID: 0}
     questData: {fileID: 0}
-    display: 0
+    display: 1
     enableCheck: 0
   - dialogueCharacter: {fileID: 11400000, guid: f25ddffb9d790774bbf822b1f49b1199, type: 2}
     sentence: "Yo bro, I\u2019m gonna bloody you up for messing with my bro Zach!\r\n"
